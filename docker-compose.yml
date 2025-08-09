@@ -1,0 +1,29 @@
+services:
+
+  go-app:
+    container_name: go-app
+    image: go-api-tutorial
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - go_db
+
+  go_db:
+    container_name: go_db
+    image: postgres:12
+
+    #VARIAVEIS DE AMBIENTE
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"
+
+    #MAPEAR UM VOLUME DO DOCKER NO COMPUTADOR PARA QUE OS DADOS PERMANEÇA MESMO QUE O CONTAINER SEJÁ EXCLUIDO E DEPOIS BILDADO NOVAMENTE
+    volumes:
+      - pgdata:/var/lib/postgres/data
+
+volumes:
+  pgdata: {}
