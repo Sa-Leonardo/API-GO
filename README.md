@@ -1,2 +1,3 @@
-go-api
+  GO-API
+
 A simple API in go
